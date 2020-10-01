@@ -1,6 +1,5 @@
-package main.java.GUI;
+package langton_ant.gui;
 
-import main.java.Model.World;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,7 +9,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-
+import langton_ant.model.*;
 
 public class Controller {
     private Movement timer;
@@ -19,10 +18,12 @@ public class Controller {
     Pane pane;
     @FXML
     public void initialize(){
-        world = new World(pane);
+        world = new World();
         timer = new Movement();
         pane.setBackground(new Background(new BackgroundFill(Color.GREY,null,null)));
     }
+
+
 
     @FXML
     Button startButton;
@@ -66,8 +67,16 @@ public class Controller {
 
     @FXML
     public void startButtonAction(){
-        world.initializeCells(pane.getWidth());
+        int numberOfCells = world.calculateNumberOfCells(pane.getWidth());
+        System.out.println(numberOfCells);
+        world.initializeCells(numberOfCells);
+
+        world.drawCellOnThePane(numberOfCells, pane);
+
+
     }
+
+
 
     @FXML
     public void getClik(MouseEvent event){
@@ -78,7 +87,7 @@ public class Controller {
 
     private class Movement extends AnimationTimer {
 
-        final long FRAMES_PER_SECOND = 50L;
+        final long FRAMES_PER_SECOND = 1000L;
         long INTERVAL = 1_00_000_000L / FRAMES_PER_SECOND;
         long last = 0;
 //        int tick =0;
