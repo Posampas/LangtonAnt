@@ -1,6 +1,6 @@
-package GUI;
+package main.java.GUI;
 
-import Model.World;
+import main.java.Model.World;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
